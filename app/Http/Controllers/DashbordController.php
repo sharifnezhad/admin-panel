@@ -10,7 +10,6 @@ class DashbordController extends Controller
 {
     public function __invoke()
     {
-        dd(Gate::allows('post-index', Auth::user()));
-        return self::view('manager/index');
+        return self::view('manager.index');
     }
 }

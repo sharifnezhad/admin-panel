@@ -13,7 +13,7 @@ class LoginController extends Controller
 
     public function index()
     {
-        return Auth::id() ? self::redirectToHome() : self::view('manager/auth/login', [], trans('messages.login_page'));
+        return Auth::user() ? self::redirectToHome() : self::view('manager.auth.login', [], trans('messages.login_page'));
     }
 
     public function login(LoginRequest $request)

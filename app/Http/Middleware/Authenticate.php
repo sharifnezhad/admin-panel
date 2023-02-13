@@ -16,7 +16,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
 
-        if (!Auth::id()) {
+        if (!Auth::user()) {
             return route('login');
         }
         return next($request);

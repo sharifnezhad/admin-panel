@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\auth\RoleController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DashbordController;
+use App\Http\Controllers\PostTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +29,8 @@ Route::prefix('manager')->group(function (){
     Route::post('register', [RegisterController::class, 'register']);
 
     Route::middleware('auth')->group(function (){
-        Route::get('', DashbordController::class)->name('home');
+        Route::get('/', DashbordController::class)->name('home');
+        Route::middleware(['checkPostType'])->resource('posttype/{name}', PostTypeController::class);
     });
 
 });

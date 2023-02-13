@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Gate::define('post-index', [PostPolicy::class, 'index']);
+        collect(config('gates'))->each(
+            fn($gate, $key) => Gate::define($key, $gate)
+        );
+
     }
 }

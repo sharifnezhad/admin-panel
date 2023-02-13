@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-{{dd(session()->all())}}
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
