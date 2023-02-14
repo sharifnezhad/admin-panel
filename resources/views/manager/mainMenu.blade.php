@@ -1,42 +1,31 @@
 @include('manager/header')
-<!-- My Side Barre -->
-<div class="sideBarre">
-    <div class="sideBarre__logo">
-        <div class="sideBarre__cercle">
 
-        </div>
-        <h1>serein</h1>
-    </div>
-    <div class="sideBarre__menu">
-        <ul>
+<div class="main-container">
+    <!-- My Side Barre -->
+    <div class="side-bar">
+        <div class="menu">
             @foreach($menu as $key => $item)
                 @if(!is_array($item))
-                    <li><a href="{{$item}}">{{$key}}</a></li>
+                    <div class="item"><a href="manager/posttype/{{$item}}">{{$lang[$key]?: $key}}</a></div>
                 @else
-                    <li>
-                        <div class="iocn-link">
-                            <a href="#">
-                                <i class='bx bx-plug'></i>
-                                <span class="link_name">{{$key}}</span>
-                            </a>
-                            <i class='bx bxs-chevron-down arrow'></i>
-                        </div>
-                        <ul class="sub-menu">
+                    <div class="item">
+                        <a class="sub-btn">{{$key}}<i class="fa fa-caret-left"></i></a>
+                        <div class="sub-menu">
                             @foreach($item['sub_menu'] as $title => $link)
-                                <li><a href="{{$link}}">{{$title}}</a></li>
+                                <a href="manager/posttype/{{$link}}">{{$title}}</a>
                             @endforeach
-                        </ul>
-                    </li>
+
+                        </div>
+                    </div>
                 @endif
             @endforeach
-        </ul>
-    </div>
-</div>
-<!-- My Main Content -->
-<div class="mainContent">
-    <nav>
-        <div id="user">
-            <div class="avatar"></div>
-            <p>@if($user->id) سلام {{$user->name}}@endif</p>
         </div>
-    </nav>
+    </div>
+    <!-- My Main Content -->
+    <div class="mainContent">
+        <nav>
+            <div id="user">
+                <div class="avatar"></div>
+                <p>@if($user->id) سلام {{$user->name}}@endif</p>
+            </div>
+        </nav>

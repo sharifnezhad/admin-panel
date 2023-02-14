@@ -25,6 +25,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::component('table', Table::class);
+        $componentConfig = config('components');
+        collect($componentConfig)->each(function ($component, $name){
+            Blade::component($name, $component);
+        });
     }
 }

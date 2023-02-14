@@ -43,4 +43,6 @@
     </div>
 </div>
 </div>
+</div>
+
 @include('manager/footer')

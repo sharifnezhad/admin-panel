@@ -5,5 +5,6 @@ return [
     'register' => 'ثبت نام',
     'remember_me' => 'مرابه خاطر بسپار',
     'login_page' => 'صفحه ورود',
-    'register_page' => 'صفحه ثبت نام'
+    'register_page' => 'صفحه ثبت نام',
+    'dashboard' => 'پیشخوان'
 ];
