@@ -1,17 +1,22 @@
 <?php
 return [
     'posts' => [
-        'path' => 'post',
+        'slug' => 'post',
         'name' => 'post',
         'labels' => [
             'menu_name' => 'مقاله آموزشی',
             'title' => 'مقاله آموزشی',
             'add_new' => 'اضافه کردن مقاله',
             'edit' => 'ویرایش مقاله',
+        ],
+        'components' => [
+            'title',
+            'slug',
+            'description'
         ]
     ],
     'users' => [
-        'path' => 'user',
+        'slug' => 'user',
         'name' => 'user',
         'labels' => [
             'menu_name' => 'کاربران',

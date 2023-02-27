@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Lang;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    protected static $dashboardUrl;
+
+    public function __construct()
+    {
+        self::$dashboardUrl = route('manager');
+    }
 
     /**
      * @param string $path
@@ -32,31 +38,32 @@ class Controller extends BaseController
             $data['lang'] = array_merge($data['lang'], trans($file[0]));
         }
         // Add menu
-        $newPostId = Post::query()->latest('id')->value('id') + 1;
         $data['menu'] = [
-            'dashboard' => route('home')
+            'dashboard' => self::$dashboardUrl
         ];
         foreach (Config::get('posttypes') as $name => $details) {
             $data['menu'] = array_merge($data['menu'], [
                 $details['labels']['menu_name'] => [
                     'sub_menu' => [
-                        $details['labels']['title'] => $details['path'],
-                        $details['labels']['add_new'] => $details['path'] . '/create?id=' . $newPostId,
+                        $details['labels']['title'] => $details['slug'],
+                        $details['labels']['add_new'] => $details['slug'] . '/create'
                     ]
                 ]
             ]);
         }
 
-        $data = array_merge($data, [
-            'title' => $title,
-            'user' => Auth::user(),
-        ]);
-
-        return view($path, $data);
+        return view($path, $data)
+            ->with([
+                'title' => $title,
+                'user' => Auth::user(),
+                'settings' => config('settings'),
+                'lang' => $data['lang'],
+                'menu' => $data['menu'],
+            ]);
     }
 
     protected static function redirectToHome()
     {
-        return to_route('home');
+        return to_route('manager');
     }
 }

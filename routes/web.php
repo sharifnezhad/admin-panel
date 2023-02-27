@@ -29,7 +29,7 @@ Route::prefix('manager')->group(function (){
     Route::post('register', [RegisterController::class, 'register']);
 
     Route::middleware('auth')->group(function (){
-        Route::get('/', DashbordController::class)->name('home');
+        Route::get('/', DashbordController::class)->name('manager');
         Route::middleware(['checkPostType'])->resource('posttype/{name}', PostTypeController::class);
     });
 

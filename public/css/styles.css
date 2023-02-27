@@ -14,12 +14,14 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Yekan';
+
 
 }
 
 body {
     background: #e9ebee;
-    font-family: sans-serif;
+    font-family: 'Yekan';
 }
 
 .container {
@@ -464,4 +466,11 @@ img{
 }
 header{
     background: #33363a;
+}
+.form-label{
+    float: right;
+}
+input, textarea{
+    text-align: right;
+
 }

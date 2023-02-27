@@ -18,12 +18,10 @@ class CheckPostType
     public function handle(Request $request, Closure $next)
     {
         $config = config('posttypes');
-        $name = $request->route()->parameter('name');
-        $postType = collect($config)->firstWhere('path', $name);
+        $name = $request->route()->name;
+        $postType = collect($config)->firstWhere('slug', $name);
         if (!$postType)
             abort(Response::HTTP_NOT_FOUND);
-        $request->merge(['postType' => $postType]);
-
 
         return $next($request);
     }

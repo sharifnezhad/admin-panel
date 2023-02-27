@@ -6,13 +6,13 @@
         <div class="menu">
             @foreach($menu as $key => $item)
                 @if(!is_array($item))
-                    <div class="item"><a href="manager/posttype/{{$item}}">{{$lang[$key]?: $key}}</a></div>
+                    <div class="item"><a href="{{$item}}">{{$lang[$key]?: $key}}</a></div>
                 @else
                     <div class="item">
                         <a class="sub-btn">{{$key}}<i class="fa fa-caret-left"></i></a>
                         <div class="sub-menu">
                             @foreach($item['sub_menu'] as $title => $link)
-                                <a href="manager/posttype/{{$link}}">{{$title}}</a>
+                                <a href="{{$menu['dashboard'] . '/' . $settings['postTypeBase'] . '/' . $link}}">{{$title}}</a>
                             @endforeach
 
                         </div>
