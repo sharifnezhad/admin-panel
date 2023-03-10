@@ -7,5 +7,6 @@ return [
     'login_page' => 'صفحه ورود',
     'register_page' => 'صفحه ثبت نام',
     'dashboard' => 'پیشخوان',
-    'store' => 'ذخیره کردن'
+    'store' => 'ذخیره کردن',
+    'remove' => 'حذف کردن'
 ];

@@ -23,6 +23,11 @@ return [
             'title' => 'کاربران',
             'add_new' => 'ایجاد کاربر',
             'edit' => 'ویرایش کاربر',
+        ],
+        'components' => [
+            'title',
+            'slug',
+            'description'
         ]
     ]
 ];

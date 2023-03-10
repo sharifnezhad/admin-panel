@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 class PostTypeController extends Controller
 {
     private $request;
+
     public function __construct(PostTypeInformationRequest $request)
     {
         parent::__construct();
@@ -29,9 +30,12 @@ class PostTypeController extends Controller
         $posts = Post::query()
             ->with(['user'])
             ->where('post_type', $name)
-            ->paginate($limit, ['title', 'user_id', 'created_at', 'updated_at'], $offset);
+            ->paginate($limit, ['*'], $offset);
 
-        return self::view('manager.postType.index', ['posts' => $posts], $this->request->postType['labels']['title']);
+        return self::view('manager.postType.index', [
+            'posts' => $posts,
+            'post_type' => $this->request->postType['name']
+        ], $this->request->postType['labels']['title']);
 
     }
 
@@ -43,7 +47,7 @@ class PostTypeController extends Controller
     public function create()
     {
         return self::view('manager.postType.create', [
-            'postType' =>  $this->request->postType,
+            'postType' => $this->request->postType,
         ], $this->request->postType['labels']['add_new']);
     }
 
@@ -61,50 +65,59 @@ class PostTypeController extends Controller
         if (!$post)
             return back();
 
-        return redirect(self::$dashboardUrl . "/posttype/{$this->request->postType['slug']}/{$post->id}");
+        return redirect(self::$dashboardUrl . "/posttype/{$this->request->postType['slug']}/{$post->id}/edit");
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name, $id)
     {
-        dd($id);
+        $post = Post::find($id);
+        return self::view('manager.postType.create', [
+            'postType' => $this->request->postType,
+            'nextAction' => $post->id,
+            'method' => 'put',
+            'post' => $post
+        ], $post->title);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($name, $id)
     {
-        //
+        $post = Post::find($id);
+        return self::view('manager.postType.create', [
+            'postType' => $this->request->postType,
+            'nextAction' => $post->id,
+            'method' => 'put',
+            'post' => $post
+        ], $post->title);
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update($name, $id)
     {
-        //
+        $post = Post::query()
+            ->whereId($id);
+        $post->update($this->request->except(['_method', '_token', 'postType']));
+
+        return redirect(self::$dashboardUrl . "/posttype/{$this->request->postType['slug']}/{$post->first()->id}/edit?result=success");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($name, $id)
     {
-        //
+        Post::query()
+            ->whereId($id)
+            ->delete();
+
+        return redirect(self::$dashboardUrl . "/posttype/{$this->request->postType['slug']}?result=success");
     }
 }

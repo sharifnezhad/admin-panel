@@ -1,3 +1,27 @@
 @include('manager/mainMenu')
-<x-table type="default" :headers="['عنوان','شناسه کاربری','تاریخ ایجاد','تاریخ آخرین تغییر']" :body="$posts"/>
+<div class="table-responsive">
+    <table class="table">
+        <thead class="table-light">
+        <tr>
+            <th scope="col" class="text-center">عنوان</th>
+            <th scope="col" class="text-center">شناسه کاربری</th>
+            <th scope="col" class="text-center">تاریخ ایجاد</th>
+            <th scope="col" class="text-center">تاریخ آخرین تغییر</th>
+            <th scope="col" class="text-center">جزئیات</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach($posts as $item)
+            <tr>
+                <td class="text-center">{{$item->title}}</td>
+                <td class="text-center"><a href="user?id={{$item->user->id}}">{{$item->user->name}}</a></td>
+                <td class="text-center">{{$item->created_at}}</td>
+                <td class="text-center">{{$item->updated_at}}</td>
+                <td class="text-center"><a href="{{$post_type}}/{{$item->id}}"><i class="fa fa-eye"></i></a></td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+</div>
 @include('manager/footer')

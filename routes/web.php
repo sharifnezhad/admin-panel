@@ -22,15 +22,24 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::prefix('manager')->group(function (){
+Route::prefix('manager')->group(function () {
     Route::get('login', [LoginController::class, 'index'])->name('login');
     Route::post('login', [LoginController::class, 'login']);
     Route::get('register', [RegisterController::class, 'index'])->name('register');
     Route::post('register', [RegisterController::class, 'register']);
 
-    Route::middleware('auth')->group(function (){
+    Route::middleware('auth')->group(function () {
         Route::get('/', DashbordController::class)->name('manager');
-        Route::middleware(['checkPostType'])->resource('posttype/{name}', PostTypeController::class);
+        Route::middleware(['checkPostType'])
+            ->prefix('posttype/{name}')
+            ->group(function () {
+                Route::resource('/', PostTypeController::class)
+                    ->only('index', 'create', 'store');
+                Route::match(['put', 'patch'], '/{id}', [PostTypeController::class, 'update']);
+                Route::delete('/{id}', [PostTypeController::class, 'destroy']);
+                Route::get('/{id}', [PostTypeController::class, 'show']);
+                Route::get('/{id}/edit', [PostTypeController::class, 'edit']);
+            });
     });
 
 });

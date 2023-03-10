@@ -11,13 +11,7 @@
         <div class="container">
             <h1>{{$lang['login_page']}}</h1>
             @if($errors->any())
-                <div class="alert alert-danger" role="alert">
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
-                </div>
+                <x-alerts.errors :errors/>
             @endif
             <form method="post">
                 @csrf

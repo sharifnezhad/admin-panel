@@ -30,10 +30,10 @@ class PostTypeInformationRequest extends FormRequest
 
     public function passedValidation()
     {
-//        $name = $this->route()->name;
-//        $this->merge([
-//            'postType' => collect(config('posttypes'))->firstWhere('slug', $name)
-//        ]);
+        $name = $this->route()->name;
+        $this->merge([
+            'postType' => collect(config('posttypes'))->firstWhere('slug', $name)
+        ]);
 
     }
 }

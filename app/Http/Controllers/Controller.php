@@ -59,6 +59,7 @@ class Controller extends BaseController
                 'settings' => config('settings'),
                 'lang' => $data['lang'],
                 'menu' => $data['menu'],
+                'result' => request()->result ?? null
             ]);
     }
 
