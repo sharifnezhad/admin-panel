@@ -30,16 +30,6 @@ Route::prefix('manager')->group(function () {
 
     Route::middleware('auth')->group(function () {
         Route::get('/', DashbordController::class)->name('manager');
-        Route::middleware(['checkPostType'])
-            ->prefix('posttype/{name}')
-            ->group(function () {
-                Route::resource('/', PostTypeController::class)
-                    ->only('index', 'create', 'store');
-                Route::match(['put', 'patch'], '/{id}', [PostTypeController::class, 'update']);
-                Route::delete('/{id}', [PostTypeController::class, 'destroy']);
-                Route::get('/{id}', [PostTypeController::class, 'show']);
-                Route::get('/{id}/edit', [PostTypeController::class, 'edit']);
-            });
     });
 
 });

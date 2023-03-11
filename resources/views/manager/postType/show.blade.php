@@ -25,6 +25,14 @@
         <input type="submit" class="btn btn-primary mb-3" value="{{$lang['store']}}">
 
     </form>
+    <form
+        action="{{$menu['dashboard']}}/{{$postType['type']}}/{{$postType['slug']}}/{{$nextAction ?? null}}"
+        method="post"
+    >
+        @csrf
+        @method('delete')
+        <input type="submit" class="btn btn-danger mb-3" value="{{$lang['remove']}}">
+    </form>
 
 </div>
 @include('manager/footer')

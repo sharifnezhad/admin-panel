@@ -18,10 +18,11 @@
                 <td class="text-center"><a href="user?id={{$item->user->id}}">{{$item->user->name}}</a></td>
                 <td class="text-center">{{$item->created_at}}</td>
                 <td class="text-center">{{$item->updated_at}}</td>
-                <td class="text-center"><a href="{{$post_type}}/{{$item->id}}"><i class="fa fa-eye"></i></a></td>
+                <td class="text-center"><a href="{{$menu['dashboard']}}/{{$postType['type']}}/{{$postType['slug']}}/{{$item->id}}" style="color: #0d6efd"><i class="fa fa-eye"></i></a></td>
             </tr>
         @endforeach
         </tbody>
     </table>
 </div>
+{!! $posts->links() !!}
 @include('manager/footer')

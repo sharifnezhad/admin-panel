@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\View\Components\Table;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
         collect($componentConfig)->each(function ($component, $name){
             Blade::component($name, $component);
         });
+        Paginator::useBootstrap();
     }
 }

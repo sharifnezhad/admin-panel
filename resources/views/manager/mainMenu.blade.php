@@ -12,7 +12,7 @@
                         <a class="sub-btn">{{$key}}<i class="fa fa-caret-left"></i></a>
                         <div class="sub-menu">
                             @foreach($item['sub_menu'] as $title => $link)
-                                <a href="{{$menu['dashboard'] . '/' . $settings['postTypeBase'] . '/' . $link}}">{{$title}}</a>
+                                <a href="{{$menu['dashboard'] . '/' . $link}}">{{$title}}</a>
                             @endforeach
 
                         </div>
@@ -23,7 +23,7 @@
     </div>
     <!-- My Main Content -->
     <div class="mainContent">
-        <nav>
+        <nav class="header">
             <div id="user">
                 <div class="avatar"></div>
                 <p>@if($user->id) سلام {{$user->name}}@endif</p>

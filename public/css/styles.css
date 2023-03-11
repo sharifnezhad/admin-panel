@@ -23,7 +23,10 @@ body {
     background: #e9ebee;
     font-family: 'Yekan';
 }
-
+a{
+    text-decoration: none;
+    color: black;
+}
 .container {
     width: 80%;
     margin: auto;
@@ -218,7 +221,7 @@ body
 
 /* CSS of NavBar */
 
-.mainContent nav
+.mainContent nav.header
 {
     height: 70px;
     background-color: var(--color-white);
@@ -473,4 +476,11 @@ header{
 input, textarea{
     text-align: right;
 
+}
+.table-responsive{
+    direction: rtl;
+}
+.pagination{
+    padding: 0 30px;
+    font-family: 'Yekan';
 }
