@@ -1,5 +1,3 @@
-@include('manager/header')
-
 <div class="main-container">
     <!-- My Side Barre -->
     <div class="side-bar">
@@ -26,6 +24,8 @@
         <nav class="header">
             <div id="user">
                 <div class="avatar"></div>
-                <p>@if($user->id) سلام {{$user->name}}@endif</p>
+                <p>@if(isset($user->id))
+                        سلام {{$user->name}}
+                    @endif</p>
             </div>
         </nav>

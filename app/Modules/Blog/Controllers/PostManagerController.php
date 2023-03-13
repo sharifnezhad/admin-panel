@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use PhpParser\Node\Expr\Array_;
 
-class PostController extends Controller
+class PostManagerController extends Controller
 {
     use ViewTrait;
 
@@ -37,9 +37,10 @@ class PostController extends Controller
         $offset = $this->request->offset ?: 1;
         $posts = $this->repository->all($offset, $limit);
 
-        return self::view('manager.postType.index', [
-            'posts' => $posts,
-            'postType' => $this->postType
+        return self::view('blog::adminArea.index', [
+            'data' => $posts,
+            'nextAction' => 'blog-manager-show'
+
         ], $this->postType['title']);
 
     }
@@ -51,8 +52,7 @@ class PostController extends Controller
      */
     public function create()
     {
-
-        return self::view('manager.postType.create', [
+        return self::view('blog::adminArea.create', [
             'postType' => $this->postType,
         ], $this->postType['menu']['add_new']['title']);
     }
@@ -82,12 +82,12 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = $this->repository->getPost($id);
-        return self::view('manager.postType.show', [
+        $post = $this->repository->firstById($id);
+        return self::view('blog::adminArea.show', [
             'postType' => $this->postType,
             'nextAction' => $post->id,
             'method' => 'put',
-            'post' => $post
+            'data' => $post
         ], $post->title);
     }
 
@@ -97,12 +97,12 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $post = $this->repository->getPost($id);
-        return self::view('manager.postType.show', [
+        $post = $this->repository->firstById($id);
+        return self::view('blog::adminArea.show', [
             'postType' => $this->postType,
             'nextAction' => $post->id,
             'method' => 'put',
-            'post' => $post
+            'data' => $post
         ], $post->title);
     }
 
@@ -111,7 +111,7 @@ class PostController extends Controller
      */
     public function update($id)
     {
-        $post = $this->repository->getPost($id);
+        $post = $this->repository->firstById($id);
         $this->repository->update($post, $this->request->except(['_method', '_token', 'postType']));
 
         return redirect(GlobalParams::dashboardUrl() . "/{$this->postType['type']}/{$this->postType['slug']}/{$post->id}/edit?result=success");

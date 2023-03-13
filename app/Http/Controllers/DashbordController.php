@@ -12,6 +12,6 @@ class DashbordController extends Controller
     use ViewTrait;
     public function __invoke()
     {
-        return self::view('manager.index');
+        return self::view('manager.dashboard');
     }
 }

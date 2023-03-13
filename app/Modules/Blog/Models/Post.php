@@ -36,4 +36,9 @@ class Post extends Model
     {
         return PostFactory::new();
     }
+
+    public function postCategory()
+    {
+        return $this->hasMany(PostCategory::class);
+    }
 }

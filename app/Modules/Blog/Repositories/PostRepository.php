@@ -3,18 +3,16 @@
 namespace App\Modules\Blog\Repositories;
 
 use App\Modules\Blog\Models\Post;
+use Illuminate\Database\Eloquent\Model;
 
-class PostRepository
+class PostRepository extends Repository
 {
-    const LIMIT = 20;
-    const OFFSET = 1;
-
     /**
      * @param int $offset
      * @param int $limit
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function all(int $offset = self::OFFSET, int $limit = self::LIMIT,)
+    public function all($dataFilter, $offset = self::OFFSET, $limit = self::LIMIT)
     {
         return Post::query()->with(['user'])
             ->paginate($limit, ['*'], $offset);
@@ -33,7 +31,7 @@ class PostRepository
      * @param $id
      * @return mixed
      */
-    public function getPost($id)
+    public function firstById($id)
     {
         return Post::find($id);
     }
@@ -47,7 +45,7 @@ class PostRepository
         return Post::query()->whereId($id)->delete();
     }
 
-    public function update(Post $post, array $data)
+    public function update(Model $post, array $data)
     {
         return Post::query()->find($post->id)->update($data);
     }

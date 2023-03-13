@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Traits\ViewTrait;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    use ViewTrait;
     /**
      * Display a listing of the resource.
      *
