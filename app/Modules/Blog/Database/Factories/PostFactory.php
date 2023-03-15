@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Blog\DataBase\Factories;
+namespace App\Modules\Blog\Database\Factories;
 
 use App\Models\User;
 use App\Modules\Blog\Models\Post;

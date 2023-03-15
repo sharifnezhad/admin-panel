@@ -6,6 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'App\\Modules\\Blog\\DataBase\\Factories\\' => array($baseDir . '/DataBase/Factories'),
+    'App\\Modules\\Blog\\Database\\Factories\\' => array($baseDir . '/Database/Factories'),
     'App\\Modules\\Blog\\' => array('/'),
 );
