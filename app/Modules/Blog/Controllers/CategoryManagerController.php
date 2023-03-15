@@ -33,7 +33,7 @@ class CategoryManagerController extends Controller
         $offset = $this->request->offset ?: 1;
         $categories = $this->repository->all($this->request->all(), $offset, $limit);
 
-        return self::view('blog::adminArea.index', [
+        return self::view('blog::manager.category..index', [
             'data' => $categories,
             'nextAction' => 'blog-manager-category-show'
         ], $this->postType['title']);
@@ -44,10 +44,10 @@ class CategoryManagerController extends Controller
      */
     public function create()
     {
-        return self::view('blog::adminArea.create', [
+        return self::view('blog::manager.category..create', [
             'postType' => $this->postType,
             'nextAction' => 'blog-manager-category-store'
-        ], $this->postType['menu']['add_new']['title']);
+        ], $this->postType['menu']['add_new_cat']['title']);
     }
 
     /**
@@ -80,7 +80,8 @@ class CategoryManagerController extends Controller
     public function show($id)
     {
         $category = $this->repository->firstById($id);
-        return self::view('blog::adminArea.show', [
+
+        return self::view('blog::manager.category..show', [
             'postType' => $this->postType,
             'nextAction' => 'blog-manager-category-show',
             'method' => 'put',
@@ -97,7 +98,7 @@ class CategoryManagerController extends Controller
     {
         $category = $this->repository->firstById($id);
 
-        return self::view('blog::adminArea.show', [
+        return self::view('blog::manager.category..show', [
             'postType' => $this->postType,
             'nextAction' => 'blog-manager-category-show',
             'method' => 'put',
@@ -108,10 +109,9 @@ class CategoryManagerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      * @param int $id
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         $category = $this->repository->firstById($id);
         $this->repository->update($category, $this->request->except(['_method', '_token', 'postType']));

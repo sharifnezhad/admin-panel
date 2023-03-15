@@ -35,9 +35,9 @@ class PostManagerController extends Controller
     {
         $limit = $this->request->limit ?: 20;
         $offset = $this->request->offset ?: 1;
-        $posts = $this->repository->all($offset, $limit);
+        $posts = $this->repository->all($this->request->all(), $offset, $limit);
 
-        return self::view('blog::adminArea.index', [
+        return self::view('blog::manager.post.index', [
             'data' => $posts,
             'nextAction' => 'blog-manager-show'
 
@@ -52,8 +52,9 @@ class PostManagerController extends Controller
      */
     public function create()
     {
-        return self::view('blog::adminArea.create', [
+        return self::view('blog::manager.post.create', [
             'postType' => $this->postType,
+            'nextAction' => 'blog-manager-store'
         ], $this->postType['menu']['add_new']['title']);
     }
 
@@ -75,17 +76,21 @@ class PostManagerController extends Controller
         if (!$post)
             return back();
 
-        return redirect(GlobalParams::dashboardUrl() . "/{$this->postType['type']}/{$this->postType['slug']}/{$post->id}/edit");
+        return redirect(route('blog-manager-edit', ['post' => $post->id]));
+
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param int $id
      */
     public function show($id)
     {
         $post = $this->repository->firstById($id);
-        return self::view('blog::adminArea.show', [
+        return self::view('blog::manager.post.show', [
             'postType' => $this->postType,
-            'nextAction' => $post->id,
+            'nextAction' => 'blog-manager-show',
             'method' => 'put',
             'data' => $post
         ], $post->title);
@@ -98,9 +103,10 @@ class PostManagerController extends Controller
     public function edit($id)
     {
         $post = $this->repository->firstById($id);
-        return self::view('blog::adminArea.show', [
+
+        return self::view('blog::manager.post.show', [
             'postType' => $this->postType,
-            'nextAction' => $post->id,
+            'nextAction' => 'blog-manager-show',
             'method' => 'put',
             'data' => $post
         ], $post->title);
@@ -114,7 +120,8 @@ class PostManagerController extends Controller
         $post = $this->repository->firstById($id);
         $this->repository->update($post, $this->request->except(['_method', '_token', 'postType']));
 
-        return redirect(GlobalParams::dashboardUrl() . "/{$this->postType['type']}/{$this->postType['slug']}/{$post->id}/edit?result=success");
+        return redirect(route('blog-manager-edit', ['post' => $post->id]) . "?result=success");
+
     }
 
     /**
@@ -125,6 +132,6 @@ class PostManagerController extends Controller
     {
         $this->repository->delete($id);
 
-        return redirect(GlobalParams::dashboardUrl() . "/{$this->postType['type']}/{$this->postType['slug']}?result=success");
+        return redirect(route('blog-manager-index') . "?result=success");
     }
 }

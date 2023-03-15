@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Blog\Controllers\PostController;
 use App\Modules\Blog\Controllers\PostManagerController;
 use App\Modules\Blog\Controllers\CategoryManagerController;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,5 @@ Route::prefix('manager')
             ]
         ]);
     });
+
+Route::resource('post', PostController::class)->only(['index', 'show']);

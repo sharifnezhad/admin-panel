@@ -21,7 +21,7 @@ class CategoryRepository extends Repository
 
     public function firstById($id)
     {
-        return Category::query()->with('postCategories.posts')->first();
+        return Category::query()->with('postCategories.posts')->find($id);
     }
 
     public function delete($id)
